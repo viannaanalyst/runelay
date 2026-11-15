@@ -1,0 +1,29 @@
+name: fork-desktop-mac
+
+on:
+  push:
+    branches: [build/desktop-mac]
+
+permissions:
+  contents: read
+
+jobs:
+  mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: oven-sh/setup-bun@v2
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: bun install --frozen-lockfile
+      - run: npm ci
+        working-directory: desktop
+      - run: npm run dist:mac
+        working-directory: desktop
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: desktop-mac
+          path: desktop/dist/*.dmg
