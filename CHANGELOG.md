@@ -6,6 +6,12 @@
 
 - Google connections can use your own Google Cloud OAuth client, set on the connection's page. runelay then signs in and refreshes tokens with Google directly instead of through the broker, and asks for any extra scopes you list, such as `https://www.googleapis.com/auth/drive` for full Drive access. Google requires the client secret. Changing the client drops the old login.
 
+### Google Drive
+
+- New Drive tools: `drive_get_file`, `drive_read_file` (text, base64, or a Docs/Sheets/Slides export), `drive_create_folder`, `drive_update_file` (rename, move, trash, restore), `drive_upload_session` (a resumable upload URL for files of any size) and `drive_download_link` (a signed link, valid for one hour, that downloads any file with a plain GET).
+- `drive_list_files` searches by folder, sorts newest first, leaves trashed files out and returns size and parents. `drive_create_file` takes a folder and base64 content for binary files.
+- With the default `drive.file` scope these tools only reach files runelay created, as before.
+
 ## v0.6.7
 
 ### Skills and memories

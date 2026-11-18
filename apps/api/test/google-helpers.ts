@@ -16,7 +16,13 @@ export interface RecordedRequest {
   body: string;
 }
 
-export type FakeReply = { status?: number; body?: unknown; text?: string };
+export type FakeReply = {
+  status?: number;
+  body?: unknown;
+  text?: string;
+  bytes?: Uint8Array;
+  headers?: Record<string, string>;
+};
 
 export interface FakeGoogle {
   base: string;
@@ -31,8 +37,10 @@ export interface FakeGoogle {
   stop: () => void;
 }
 
-const reply = ({ status = 200, body = {}, text }: FakeReply) =>
-  text === undefined ? Response.json(body, { status }) : new Response(text, { status });
+const reply = ({ status = 200, body = {}, text, bytes, headers }: FakeReply) => {
+  if (bytes) return new Response(bytes, { status, headers });
+  return text === undefined ? Response.json(body, { status, headers }) : new Response(text, { status, headers });
+};
 
 export const startFakeGoogle = (): FakeGoogle => {
   const fake = {

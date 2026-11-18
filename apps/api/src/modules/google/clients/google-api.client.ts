@@ -1,6 +1,6 @@
 import { attempt, fail, ok, type Result } from "@runelay/shared";
 import { GOOGLE_ERROR_PREVIEW } from "@/modules/google/constants/google.constants";
-import type { GoogleApi, GoogleRequest } from "@/modules/google/types/google.types";
+import type { GoogleApi, GoogleRawResponse, GoogleRequest } from "@/modules/google/types/google.types";
 import { googleFetch } from "@/modules/google/utils/google-fetch";
 
 const parseBody = (text: string): unknown => {
@@ -32,7 +32,11 @@ export const createGoogleApi =
   async <T>(request: GoogleRequest): Promise<Result<T>> => {
     const access = await token();
     if (access.error) return access;
-    const headers: Record<string, string> = { accept: "application/json", authorization: `Bearer ${access.data}` };
+    const headers: Record<string, string> = {
+      accept: request.raw ? "*/*" : "application/json",
+      ...request.headers,
+      authorization: `Bearer ${access.data}`,
+    };
     const json = request.json !== undefined;
     if (json) headers["content-type"] = "application/json";
     if (request.contentType) headers["content-type"] = request.contentType;
@@ -46,6 +50,14 @@ export const createGoogleApi =
       "TOOL_FAILED",
     );
     if (response.error) return response;
+    if (request.raw && response.data.ok) {
+      const raw: GoogleRawResponse = {
+        bytes: new Uint8Array(await response.data.arrayBuffer()),
+        contentType: response.data.headers.get("content-type"),
+        location: response.data.headers.get("location"),
+      };
+      return ok(raw as T);
+    }
     const data = parseBody(await response.data.text());
     if (!response.data.ok) {
       return fail("TOOL_FAILED", `Google: ${errorText(data, response.data.status)}`, {

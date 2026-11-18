@@ -44,7 +44,7 @@ const run = (name: string, args: Record<string, unknown> = {}) => {
 const json = (body: string) => JSON.parse(body) as Record<string, unknown>;
 
 test("every REST tool has a described input schema", () => {
-  expect(tools.size).toBe(21);
+  expect(tools.size).toBe(27);
   for (const tool of tools.values()) {
     expect(tool.source).toBe("google");
     expect(tool.description).toMatch(/Scopes?: /);
@@ -549,17 +549,92 @@ test("drive_create_file uploads a multipart body", async () => {
   );
   await run("drive_create_file", { name: "a.txt", content: "x" });
   expect(google.last().body).toContain("Content-Type: text/plain");
+  await run("drive_create_file", {
+    name: "foto.png",
+    content: "iVBORw0KGgo=",
+    mimeType: "image/png",
+    encoding: "base64",
+    parentId: "folder1",
+  });
+  const binary = google.last().body;
+  expect(binary).toContain('{"name":"foto.png","mimeType":"image/png","parents":["folder1"]}');
+  expect(binary).toContain("Content-Type: image/png\r\nContent-Transfer-Encoding: base64\r\n\r\niVBORw0KGgo=");
 });
 
-test("drive_list_files lists app files", async () => {
+test("drive_list_files searches without trashed files and can stay inside a folder", async () => {
   await run("drive_list_files", { query: "name contains 'x'" });
   const list = google.last();
   expect(list).toMatchObject({ method: "GET", path: "/drive/v3/files" });
   expect(list.query.get("pageSize")).toBe("20");
-  expect(list.query.get("q")).toBe("name contains 'x'");
+  expect(list.query.get("q")).toBe("(name contains 'x') and (trashed = false)");
+  expect(list.query.get("orderBy")).toBe("modifiedTime desc");
   expect(list.query.has("pageToken")).toBe(false);
-  expect(list.query.get("fields")).toBe("nextPageToken,files(id,name,mimeType,modifiedTime,webViewLink)");
-  expect(tools.get("drive_list_files")?.description).toContain("only sees files this app created");
+  expect(list.query.get("fields")).toBe("nextPageToken,files(id,name,mimeType,size,parents,modifiedTime,webViewLink)");
+  await run("drive_list_files", { folderId: "it's", includeTrashed: true });
+  expect(google.last().query.get("q")).toBe("('it\\'s' in parents)");
+  await run("drive_list_files", { includeTrashed: true });
+  expect(google.last().query.has("q")).toBe(false);
+  expect(tools.get("drive_list_files")?.description).toContain("only reaches files runelay created");
+});
+
+test("drive_get_file, drive_create_folder and drive_update_file send the right requests", async () => {
+  await run("drive_get_file", { fileId: "f1" });
+  expect(google.last()).toMatchObject({ method: "GET", path: "/drive/v3/files/f1" });
+  await run("drive_create_folder", { name: "Moradah", parentId: "root1" });
+  expect(google.last()).toMatchObject({ method: "POST", path: "/drive/v3/files" });
+  expect(json(google.last().body)).toEqual({
+    name: "Moradah",
+    mimeType: "application/vnd.google-apps.folder",
+    parents: ["root1"],
+  });
+  await run("drive_update_file", { fileId: "f1", name: "novo.mp4", addParentId: "b", removeParentId: "a" });
+  const moved = google.last();
+  expect(moved).toMatchObject({ method: "PATCH", path: "/drive/v3/files/f1" });
+  expect(moved.query.get("addParents")).toBe("b");
+  expect(moved.query.get("removeParents")).toBe("a");
+  expect(json(moved.body)).toEqual({ name: "novo.mp4" });
+  expect((await run("drive_update_file", { fileId: "f1" })).error?.code).toBe("INVALID_INPUT");
+});
+
+test("drive_read_file returns text, base64 or a Docs export and refuses big files", async () => {
+  const meta = (mimeType: string, size?: string) => () => ({ body: { id: "f1", name: "a", mimeType, size } });
+  google.routes.set("GET www.googleapis.com/drive/v3/files/f1", (request) =>
+    request.query.get("alt") === "media" ? { bytes: new Uint8Array([104, 105]) } : meta("text/plain", "2")(),
+  );
+  expect((await run("drive_read_file", { fileId: "f1" })).data).toMatchObject({ encoding: "text", content: "hi" });
+  google.routes.set("GET www.googleapis.com/drive/v3/files/f1", (request) =>
+    request.query.get("alt") === "media" ? { bytes: new Uint8Array([0, 255]) } : meta("image/png", "2")(),
+  );
+  expect((await run("drive_read_file", { fileId: "f1" })).data).toMatchObject({ encoding: "base64", content: "AP8=" });
+  google.routes.set("GET www.googleapis.com/drive/v3/files/f1", meta("video/mp4", "999999999"));
+  const big = await run("drive_read_file", { fileId: "f1" });
+  expect(big.error?.message).toContain("drive_download_link");
+  google.routes.set("GET www.googleapis.com/drive/v3/files/f1", meta("application/vnd.google-apps.spreadsheet"));
+  google.routes.set("GET www.googleapis.com/drive/v3/files/f1/export", () => ({ text: "a,b" }));
+  expect((await run("drive_read_file", { fileId: "f1" })).data).toMatchObject({
+    mimeType: "text/csv",
+    encoding: "text",
+    content: "a,b",
+  });
+  expect(google.last().query.get("mimeType")).toBe("text/csv");
+  google.routes.set("GET www.googleapis.com/drive/v3/files/f1", meta("application/vnd.google-apps.form"));
+  expect((await run("drive_read_file", { fileId: "f1" })).error?.code).toBe("INVALID_INPUT");
+});
+
+test("drive_upload_session returns Google's resumable upload url", async () => {
+  google.routes.set("POST www.googleapis.com/upload/drive/v3/files", () => ({
+    headers: { location: "https://www.googleapis.com/upload/drive/v3/files?upload_id=xyz" },
+  }));
+  const result = await run("drive_upload_session", { name: "v.mp4", mimeType: "video/mp4", parentId: "p", size: 10 });
+  expect(result.data).toEqual({
+    uploadUrl: "https://www.googleapis.com/upload/drive/v3/files?upload_id=xyz",
+    method: "PUT",
+    contentType: "video/mp4",
+  });
+  expect(google.last().query.get("uploadType")).toBe("resumable");
+  expect(json(google.last().body)).toEqual({ name: "v.mp4", mimeType: "video/mp4", parents: ["p"] });
+  google.routes.set("POST www.googleapis.com/upload/drive/v3/files", () => ({}));
+  expect((await run("drive_upload_session", { name: "v.mp4" })).error?.code).toBe("TOOL_FAILED");
 });
 
 test("gmail_send_email sends a base64url RFC 2822 message", async () => {

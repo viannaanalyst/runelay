@@ -36,7 +36,7 @@ const serviceTools = (key: SourceKey, services: GoogleService[]): Tool[] => {
       SERVICE_TOOLS[service].map((definition) => ({ ...definition, name: `${service}_${definition.name}` })),
     ),
   ];
-  return definitions.map((definition) => toGoogleTool(definition, key.name, api));
+  return definitions.map((definition) => toGoogleTool(definition, key, api));
 };
 
 export const connectGoogle = async (key: SourceKey, config: GoogleConfig): Promise<Result<Connection>> => {

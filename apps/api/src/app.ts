@@ -9,6 +9,7 @@ import { catalogRoutes } from "@/modules/catalog/routes/catalog.routes";
 import { cliRoutes } from "@/modules/cli/routes/cli.routes";
 import { contextRoutes } from "@/modules/context/routes/context.routes";
 import { gatewayRoutes } from "@/modules/gateway/routes/gateway.routes";
+import { googleFilesRoutes } from "@/modules/google/routes/google-files.routes";
 import { memoriesRoutes } from "@/modules/memories/routes/memories.routes";
 import { oauthRoutes } from "@/modules/oauth/routes/oauth.routes";
 import { meRoutes, organizationsRoutes } from "@/modules/organizations/routes/organizations.routes";
@@ -26,6 +27,7 @@ const v1 = new Hono()
   .route("/api-keys", apiKeysRoutes)
   .route("/cli", cliRoutes)
   .route("/oauth", oauthRoutes)
+  .route("/google", googleFilesRoutes)
   .route("/memories", memoriesRoutes)
   .route("/skills", skillsRoutes)
   .route("/context", contextRoutes)

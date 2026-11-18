@@ -76,6 +76,14 @@ export const GOOGLE_API = {
   meetSpaces: "https://meet.googleapis.com/v2/spaces",
 };
 
+export const DRIVE_READ_DEFAULT_BYTES = 5 * 1024 * 1024;
+
+export const DRIVE_READ_MAX_BYTES = 20 * 1024 * 1024;
+
+export const DRIVE_LINK_TTL_MS = 60 * 60 * 1000;
+
+export const DRIVE_FILES_PATH = "/v1/google/files";
+
 export const GOOGLE_REFRESH_MARGIN_MS = 60_000;
 
 export const GOOGLE_ERROR_PREVIEW = 500;
