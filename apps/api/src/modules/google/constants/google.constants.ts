@@ -65,6 +65,7 @@ export const GOOGLE_API = {
   driveFiles: "https://www.googleapis.com/drive/v3/files",
   driveUpload: "https://www.googleapis.com/upload/drive/v3/files",
   gmailSend: "https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
+  gmail: "https://gmail.googleapis.com/gmail/v1/users/me",
   forms: "https://forms.googleapis.com/v1/forms",
   meetSpaces: "https://meet.googleapis.com/v2/spaces",
 };
@@ -72,3 +73,9 @@ export const GOOGLE_API = {
 export const GOOGLE_REFRESH_MARGIN_MS = 60_000;
 
 export const GOOGLE_ERROR_PREVIEW = 500;
+
+export const GMAIL_SEARCH_DEFAULT = 10;
+
+export const GMAIL_SEARCH_MAX = 50;
+
+export const GMAIL_BODY_MAX_CHARS = 20_000;

@@ -63,7 +63,7 @@ test("login asks Google for the selected services and the callback connects", as
   expect(response.headers.get("location")).toBe("/connectors/google?oauth=done");
   expect(await view()).toMatchObject({
     status: "ok",
-    toolCount: 3,
+    toolCount: 9,
     google: { email: "ana@example.com", grantedServices: ["gmail", "meet"] },
   });
   const repeated = await call(`/v1/oauth/callback?state=${encodeBrokerState("google")}&code=used`, {
@@ -92,7 +92,7 @@ test("adding services asks for an incremental login with only the new scopes", a
   google.tokenReply = null;
   expect(findSource(key()).data?.oauth.tokens).toMatchObject({ access_token: "after-forms" });
   expect(findSource(key()).data?.oauth.tokens?.refresh_token).toBeTruthy();
-  expect(await view()).toMatchObject({ status: "ok", toolCount: 5, error: null });
+  expect(await view()).toMatchObject({ status: "ok", toolCount: 11, error: null });
 });
 
 test("a failed exchange redirects with the error", async () => {

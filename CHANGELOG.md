@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Gmail
+
+- New Gmail tools to read and answer the mailbox: `gmail_search_messages` (Gmail search syntax, returns sender, subject, date and snippet), `gmail_get_message` (headers, plain-text body and attachment list), `gmail_get_thread`, `gmail_reply` (same thread, with `In-Reply-To`, `References` and "Re:"), `gmail_modify_labels` (mark read, archive, add or remove labels) and `gmail_list_labels`.
+- The default client still only asks for `gmail.send`. To read, give the connection its own OAuth client with the `gmail.modify` scope (or `gmail.readonly` to only read).
+
 ## v0.6.7
 
 ### Skills and memories
