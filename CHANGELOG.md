@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+### Gmail
+
+- New Gmail tools to read and answer the mailbox: `gmail_search_messages` (Gmail search syntax, returns sender, subject, date and snippet), `gmail_get_message` (headers, plain-text body and attachment list), `gmail_get_thread`, `gmail_reply` (same thread, with `In-Reply-To`, `References` and "Re:"), `gmail_modify_labels` (mark read, archive, add or remove labels) and `gmail_list_labels`.
+- The default client still only asks for `gmail.send`. To read, give the connection its own OAuth client with the `gmail.modify` scope (or `gmail.readonly` to only read).
+
 ### Connections
 
 - Google connections can use your own Google Cloud OAuth client, set on the connection's page. runelay then signs in and refreshes tokens with Google directly instead of through the broker, and asks for any extra scopes you list, such as `https://www.googleapis.com/auth/drive` for full Drive access. Google requires the client secret. Changing the client drops the old login.
