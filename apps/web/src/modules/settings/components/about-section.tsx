@@ -1,4 +1,10 @@
-import { Download04Icon, GithubIcon, InformationCircleIcon, StarIcon } from "@hugeicons/core-free-icons";
+import {
+  Download04Icon,
+  GithubIcon,
+  InformationCircleIcon,
+  SecurityCheckIcon,
+  StarIcon,
+} from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/display/skeleton";
@@ -40,6 +46,12 @@ export function AboutSection() {
             className="text-chart-1 transition-transform duration-200 group-hover:rotate-[72deg] group-hover:scale-110"
           />
           {t("settings.about.star")}
+        </ExternalLinkButton>
+      </SettingsRow>
+      <SettingsRow label={t("settings.about.privacy")} description={t("settings.about.privacyDescription")}>
+        <ExternalLinkButton href={t("settings.about.privacyUrl")}>
+          <HugeiconsIcon icon={SecurityCheckIcon} size={15} strokeWidth={1.7} />
+          {t("settings.about.privacyLink")}
         </ExternalLinkButton>
       </SettingsRow>
     </SettingsSection>

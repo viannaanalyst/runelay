@@ -1,6 +1,6 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 
-export const githubUrl = "https://github.com/Andsu-dev/runelay";
+export const githubUrl = "https://github.com/runelay/runelay";
 
 export function baseOptions(): BaseLayoutProps {
   return {

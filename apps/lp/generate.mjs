@@ -324,7 +324,7 @@ const hub = () => {
       faq: [
         ["Do all integrations use OAuth?", "No. Most use OAuth, including GitHub and Google, a few take an API key and some public servers need no login. Each entry shows which."],
         ["Who runs these MCP servers?", "Each entry points at a remote MCP server on the provider's own domain. Runelay connects to it from your server and keeps the credential."],
-        ["Can I request a new integration?", "Open an issue at github.com/Andsu-dev/runelay. Meanwhile, any remote MCP URL can be added from the panel."],
+        ["Can I request a new integration?", "Open an issue at github.com/runelay/runelay. Meanwhile, any remote MCP URL can be added from the panel."],
       ],
     },
     pt: {
@@ -348,7 +348,7 @@ const hub = () => {
       faq: [
         ["Todas as integrações usam OAuth?", "Não. A maioria usa OAuth, inclusive GitHub e Google, alguns pedem uma chave de API e alguns servidores públicos não pedem login. Cada item mostra qual é o caso."],
         ["Quem roda esses servidores MCP?", "Cada item aponta para um servidor MCP remoto no domínio do próprio provedor. O Runelay se conecta a ele a partir do seu servidor e guarda a credencial."],
-        ["Posso pedir uma integração nova?", "Abra uma issue em github.com/Andsu-dev/runelay. Enquanto isso, qualquer URL de MCP remoto pode ser adicionada pelo painel."],
+        ["Posso pedir uma integração nova?", "Abra uma issue em github.com/runelay/runelay. Enquanto isso, qualquer URL de MCP remoto pode ser adicionada pelo painel."],
       ],
     },
   };

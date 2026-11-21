@@ -3,6 +3,7 @@ import { env } from "@/config/env";
 import { connectGoogle } from "@/modules/google/clients/google.client";
 import { DRIVE_FILES_PATH, DRIVE_LINK_TTL_MS } from "@/modules/google/constants/google.constants";
 import { signDriveLink, verifyDriveLink } from "@/modules/google/utils/drive-link";
+import { googleTransport } from "@/modules/google/utils/google-fetch";
 import { scopesFor } from "@/modules/google/utils/google-scopes";
 import { updateOAuth, upsertSource } from "@/modules/sources/repositories/source.repository";
 import { type FakeGoogle, startFakeGoogle } from "../../../../../test/google-helpers";
@@ -73,4 +74,22 @@ test("tampered, expired or unknown links are refused", async () => {
   expect((await call(pathOf(missing.url))).status).toBe(404);
   const otherSource = signDriveLink({ organizationId: account.organizationId, name: "nope" }, "v1");
   expect((await call(pathOf(otherSource.url))).status).toBe(409);
+});
+
+test("a link reports Google failures without leaking the file", async () => {
+  google.routes.set("GET www.googleapis.com/drive/v3/files/v2", (request) =>
+    request.query.get("alt") === "media" ? { status: 500, body: {} } : { text: "not json" },
+  );
+  const { url } = signDriveLink(key(), "v2");
+  expect((await call(pathOf(url))).ok).toBe(false);
+  const { fetch } = googleTransport;
+  try {
+    googleTransport.fetch = (input, init) =>
+      String(input).includes("alt=media") ? Promise.reject(new Error("down")) : fetch(input, init);
+    expect((await call(pathOf(url))).ok).toBe(false);
+    googleTransport.fetch = () => Promise.reject(new Error("down"));
+    expect((await call(pathOf(url))).status).toBe(404);
+  } finally {
+    googleTransport.fetch = fetch;
+  }
 });

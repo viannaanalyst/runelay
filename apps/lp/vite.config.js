@@ -7,7 +7,7 @@ import { defineConfig } from "vite";
 import { jsonLd, plain } from "./blocks.mjs";
 
 const ORIGIN = "https://runelay.com";
-const REPO = "https://github.com/Andsu-dev/runelay";
+const REPO = "https://github.com/runelay/runelay";
 
 const pages = readdirSync(".", { recursive: true })
   .map((file) => file.replaceAll("\\", "/"))
@@ -29,7 +29,7 @@ const FOOTER = {
       ["Product", [["Download", "/download/"], ["Setup", "/setup/"], ["Integrations", "/integrations/"], ["Changelog", "/changelog/"], ["Benchmark", "/benchmark/"]]],
       ["Guides", [["All guides", "/guides/"], ["Share MCP across agents", "/guides/share-mcp-across-agents/"], ["runelay + Claude Code", "/guides/claude-code/"], ["runelay + Cursor", "/guides/cursor/"], ["runelay + Codex", "/guides/codex/"], ["runelay + agentes.chat", "/guides/agentes-chat/"], ["runelay + Antigravity", "/guides/antigravity/"], ["runelay + Grokbot", "/guides/grokbot/"], ["runelay + Hermes Agent", "/guides/hermes-agent/"], ["runelay + OpenClaw", "/guides/openclaw/"], ["runelay + MausBot", "/guides/mausbot/"], ["runelay + OpenCode", "/guides/opencode/"], ["runelay + OpenBot", "/guides/openbot/"], ["runelay + Kimi Code", "/guides/kimi-code/"], ["runelay migrate", "/docs/migrate/"]]],
       ["Learn", [["Self-hosted MCP gateway", "/self-hosted-mcp-gateway/"], ["Custom connectors", "/custom-connectors/"], ["MCP gateway vs MCP server", "/mcp-gateway-vs-mcp-server/"], ["Composio alternative", "/composio-alternative/"], ["Executor alternative", "/executor-alternative/"], ["Docker MCP Gateway alternative", "/docker-mcp-gateway-alternative/"], ["Obot alternative", "/obot-alternative/"], ["MCPHub alternative", "/mcphub-alternative/"], ["ContextForge alternative", "/contextforge-alternative/"], ["agentgateway alternative", "/agentgateway-alternative/"], ["Runelay vs Runlayer", "/vs/runlayer/"]]],
-      ["Project", [["GitHub", REPO], ["Docs", "https://docs.runelay.com"], ["Releases", `${REPO}/releases`], ["llms.txt", "/llms.txt"], ["Privacy", "/privacy/"], ["Terms", "/terms/"]]],
+      ["Project", [["GitHub", REPO], ["Docs", "https://docs.runelay.com"], ["Releases", "/releases"], ["llms.txt", "/llms.txt"], ["Privacy", "/privacy/"], ["Terms", "/terms/"]]],
     ],
   },
   pt: {
@@ -42,7 +42,7 @@ const FOOTER = {
       ["Produto", [["Baixar", "/download/"], ["Configurar", "/setup/"], ["Integrações", "/integrations/"], ["Changelog", "/changelog/"], ["Benchmark", "/benchmark/"]]],
       ["Guias", [["Todos os guias", "/guides/"], ["Compartilhar MCP entre agentes", "/guides/share-mcp-across-agents/"], ["runelay + Claude Code", "/guides/claude-code/"], ["runelay + Cursor", "/guides/cursor/"], ["runelay + Codex", "/guides/codex/"], ["runelay + agentes.chat", "/guides/agentes-chat/"], ["runelay + Antigravity", "/guides/antigravity/"], ["runelay + Grokbot", "/guides/grokbot/"], ["runelay + Hermes Agent", "/guides/hermes-agent/"], ["runelay + OpenClaw", "/guides/openclaw/"], ["runelay + MausBot", "/guides/mausbot/"], ["runelay + OpenCode", "/guides/opencode/"], ["runelay + OpenBot", "/guides/openbot/"], ["runelay + Kimi Code", "/guides/kimi-code/"], ["runelay migrate", "/docs/migrate/"]]],
       ["Entenda", [["MCP gateway self-hosted", "/self-hosted-mcp-gateway/"], ["Conectores personalizados", "/custom-connectors/"], ["MCP gateway vs MCP server", "/mcp-gateway-vs-mcp-server/"], ["Alternativa ao Composio", "/composio-alternative/"], ["Alternativa ao Executor", "/executor-alternative/"], ["Alternativa ao Docker MCP Gateway", "/docker-mcp-gateway-alternative/"], ["Alternativa ao Obot", "/obot-alternative/"], ["Alternativa ao MCPHub", "/mcphub-alternative/"], ["Alternativa ao ContextForge", "/contextforge-alternative/"], ["Alternativa ao agentgateway", "/agentgateway-alternative/"], ["Runelay vs Runlayer", "/vs/runlayer/"]]],
-      ["Projeto", [["GitHub", REPO], ["Documentação", "https://docs.runelay.com"], ["Releases", `${REPO}/releases`], ["llms.txt", "/llms.txt"], ["Privacidade", "/privacy/"], ["Termos", "/terms/"]]],
+      ["Projeto", [["GitHub", REPO], ["Documentação", "https://docs.runelay.com"], ["Releases", "/releases"], ["llms.txt", "/llms.txt"], ["Privacidade", "/privacy/"], ["Termos", "/terms/"]]],
     ],
   },
 };

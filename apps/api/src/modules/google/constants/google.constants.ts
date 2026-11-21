@@ -71,8 +71,8 @@ export const GOOGLE_API = {
   slides: "https://slides.googleapis.com/v1/presentations",
   driveFiles: "https://www.googleapis.com/drive/v3/files",
   driveUpload: "https://www.googleapis.com/upload/drive/v3/files",
-  gmailSend: "https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
   gmail: "https://gmail.googleapis.com/gmail/v1/users/me",
+  gmailSend: "https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
   forms: "https://forms.googleapis.com/v1/forms",
   meetSpaces: "https://meet.googleapis.com/v2/spaces",
 };
@@ -85,6 +85,10 @@ export const DRIVE_LINK_TTL_MS = 60 * 60 * 1000;
 
 export const DRIVE_FILES_PATH = "/v1/google/files";
 
+export const GMAIL_BODY_LIMIT = 50_000;
+
+export const GMAIL_METADATA_CONCURRENCY = 10;
+
 export const GOOGLE_REFRESH_MARGIN_MS = 60_000;
 
 export const GOOGLE_ERROR_PREVIEW = 500;
@@ -92,5 +96,3 @@ export const GOOGLE_ERROR_PREVIEW = 500;
 export const GMAIL_SEARCH_DEFAULT = 10;
 
 export const GMAIL_SEARCH_MAX = 50;
-
-export const GMAIL_BODY_MAX_CHARS = 20_000;

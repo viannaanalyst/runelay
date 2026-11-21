@@ -60,7 +60,7 @@
 
 ## Docs
 
-- [README](https://raw.githubusercontent.com/Andsu-dev/runelay/main/README.md): full documentation, configuration, environment variables, security model, MCP tools and REST API.
+- [README](https://raw.githubusercontent.com/runelay/runelay/main/README.md): full documentation, configuration, environment variables, security model, MCP tools and REST API.
 - [Changelog](https://runelay.com/changelog/): what changed in each release.
 - [Releases](https://github.com/Andsu-dev/runelay/releases): installers, CLI binaries and `compose.yaml`.
 
@@ -76,5 +76,5 @@
 
 ## Optional
 
-- [Source code](https://github.com/Andsu-dev/runelay): Bun, Hono, SQLite, React.
+- [Source code](https://github.com/runelay/runelay): Bun, Hono, SQLite, React.
 - [Página em português](https://runelay.com/pt-br/)

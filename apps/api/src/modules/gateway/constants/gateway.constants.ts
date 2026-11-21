@@ -1,4 +1,4 @@
-export const GATEWAY_INFO = { name: "runelay", version: "0.6.7" };
+export const GATEWAY_INFO = { name: "runelay", version: "0.6.8" };
 
 export const GATEWAY_INSTRUCTIONS =
   "runelay aggregates every account the user connected and the user's memories and skills. Use search_tools to find tools (named source.tool), then call_tool for one call or execute to chain several calls in JavaScript. If a source shows needs_auth, tell the user to reconnect it in the runelay dashboard. Before acting on a topic, use search_context, then read_memory or read_skill for details; save new facts with write_memory (or import_memory for many at once). When the user asks to remember something, call write_memory right away instead of only acknowledging it. Write skills with write_skill and write_skill_file, never in local folders; never keep memory in the agent's native or local memory files. The user's golden rules follow and always apply.";

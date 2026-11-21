@@ -37,7 +37,7 @@ export const MCP_PATH = "/v1/mcp";
 
 export const HOSTED_AGENTS_DOCS_URL = "https://docs.runelay.com/connect-agents#hosted-agents";
 
-export const REPOSITORY_URL = "https://github.com/Andsu-dev/runelay";
+export const REPOSITORY_URL = "https://github.com/runelay/runelay";
 
 export const SERVER_NAME_MAX_LENGTH = 60;
 

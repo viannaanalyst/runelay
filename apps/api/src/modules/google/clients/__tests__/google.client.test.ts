@@ -86,6 +86,7 @@ test("loads runelay's REST tools for the selected services without any Google MC
     "gmail_modify_labels",
     "gmail_reply",
     "gmail_search_messages",
+    "gmail_search_threads",
     "gmail_send_email",
   ]);
   google.routes.set("GET www.googleapis.com/calendar/v3/users/me/calendarList", () => ({
@@ -105,7 +106,7 @@ test("a connected source reports every tool and no error", async () => {
   grant();
   expect((await connectSource(key())).error).toBeNull();
   const view = findSourceView(key()).data;
-  expect(view).toMatchObject({ status: "ok", error: null, toolCount: 15 });
+  expect(view).toMatchObject({ status: "ok", error: null, toolCount: 16 });
   const tool = await findTool(account.organizationId, "google.docs_read_document");
   expect(tool.data?.source).toBe("google");
 });

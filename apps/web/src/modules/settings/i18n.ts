@@ -21,6 +21,10 @@ export const settingsMessages = defineMessages(
       openSource: "Open source",
       starDescription: "Gostou do runelay? Deixe uma estrela no GitHub.",
       star: "Deixar estrela",
+      privacy: "Privacidade",
+      privacyDescription: "Como o runelay usa e protege os seus dados.",
+      privacyLink: "Política de Privacidade",
+      privacyUrl: "https://runelay.com/pt-br/privacy/",
     },
     preferences: {
       title: "Preferências",
@@ -137,6 +141,10 @@ export const settingsMessages = defineMessages(
       openSource: "Open source",
       starDescription: "Enjoying runelay? Leave a star on GitHub.",
       star: "Star it",
+      privacy: "Privacy",
+      privacyDescription: "How runelay uses and protects your data.",
+      privacyLink: "Privacy Policy",
+      privacyUrl: "https://runelay.com/privacy/",
     },
     preferences: {
       title: "Preferences",

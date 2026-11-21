@@ -72,6 +72,59 @@ flowchart LR
 | 🔑 **One key per agent** | Revoke one without touching the others. Every call audited. |
 | 🏠 **Yours** | One container, SQLite, no third-party services. MIT. |
 
+## 🎬 Features
+
+<table>
+<tr>
+<td width="45%">
+<h3>Connect once, every agent gets it</h3>
+<p>Search the catalog and install a connector with one click. Public ones are ready right away, the rest ask for an OAuth sign-in once. Every agent in the organization sees its tools.</p>
+<p><a href="https://docs.runelay.com/connections/">Docs →</a></p>
+</td>
+<td><img src=".github/assets/features/catalog.webp" alt="Searching the catalog for Hugging Face and installing it with one click" width="100%" /></td>
+</tr>
+<tr>
+<td width="45%">
+<h3>Memory your agents share</h3>
+<p>Notes linked with <code>[[slug]]</code>, versioned and checked for broken links or isolated notes. Switch to the graph to see how they connect.</p>
+<p><a href="https://docs.runelay.com/memories-and-skills/">Docs →</a></p>
+</td>
+<td><img src=".github/assets/features/memory.webp" alt="The memory list switching to the graph view of linked notes" width="100%" /></td>
+</tr>
+<tr>
+<td width="45%">
+<h3>Skills that travel</h3>
+<p>Your <code>SKILL.md</code> folders in one place. Turn a skill off without deleting it, open it to read or edit the instructions.</p>
+<p><a href="https://docs.runelay.com/memories-and-skills/#skills">Docs →</a></p>
+</td>
+<td><img src=".github/assets/features/skills.webp" alt="Turning a skill off and on, then opening its SKILL.md" width="100%" /></td>
+</tr>
+<tr>
+<td width="45%">
+<h3>One key per agent</h3>
+<p>Create a key for each agent and get its config ready to paste for Claude Code, Codex, Grok and Cursor. Revoke one without touching the others.</p>
+<p><a href="https://docs.runelay.com/connect-agents/">Docs →</a></p>
+</td>
+<td><img src=".github/assets/features/keys.webp" alt="Creating an API key for Grok and showing the config for each agent" width="100%" /></td>
+</tr>
+<tr>
+<td width="45%">
+<h3>See what your agents use</h3>
+<p>Calls, error rate and daily activity on the overview. The activity log shows every tool call, live, filtered by agent or connector.</p>
+<p><a href="https://docs.runelay.com/security/#abuse-and-visibility">Docs →</a></p>
+</td>
+<td><img src=".github/assets/features/usage.webp" alt="The overview charts, then the activity log filtered by the Codex agent" width="100%" /></td>
+</tr>
+<tr>
+<td width="45%">
+<h3>Hook up every agent in one command</h3>
+<p>The setup guide gives you one command that installs the CLI, signs in through the browser and wires every agent on the computer. Each one gets a check when it is using runelay.</p>
+<p><a href="https://docs.runelay.com/cli/#setup">Docs →</a></p>
+</td>
+<td><img src=".github/assets/features/setup.webp" alt="The setup guide with the one-line command and a check for each connected agent" width="100%" /></td>
+</tr>
+</table>
+
 ## 🚀 Quick start
 
 ```sh

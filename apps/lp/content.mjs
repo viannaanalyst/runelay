@@ -1039,7 +1039,7 @@ const runlayer = {
           ),
         ),
       ),
-      card("info", "About the name", prose("Runelay is written with an “e” after “run”. The project and the site are runelay.com and github.com/Andsu-dev/runelay. It has no relation to Runlayer and makes no claim about that product beyond what its own site states.")),
+      card("info", "About the name", prose("Runelay is written with an “e” after “run”. The project and the site are runelay.com and github.com/runelay/runelay. It has no relation to Runlayer and makes no claim about that product beyond what its own site states.")),
     ],
     faq: [
       ["Is Runelay related to Runlayer?", "No. They are separate projects from different authors. Runelay is an MIT licensed MCP gateway by Anderson Medeiros."],
@@ -1088,7 +1088,7 @@ const runlayer = {
           checks(["Está avaliando uma plataforma de governança de agentes para a empresa.", "Precisa de políticas, aprovações e scanners de segurança geridos por um fornecedor.", "Recebeu um link de runlayer.com ou docs.runlayer.com."], "dash"),
         ),
       ),
-      card("info", "Sobre o nome", prose("Runelay se escreve com “e” depois de “run”. O projeto e o site são runelay.com e github.com/Andsu-dev/runelay. Não tem relação com o Runlayer e não afirma nada sobre aquele produto além do que o próprio site dele diz.")),
+      card("info", "Sobre o nome", prose("Runelay se escreve com “e” depois de “run”. O projeto e o site são runelay.com e github.com/runelay/runelay. Não tem relação com o Runlayer e não afirma nada sobre aquele produto além do que o próprio site dele diz.")),
     ],
     faq: [
       ["O Runelay tem relação com o Runlayer?", "Não. São projetos separados, de autores diferentes. O Runelay é um gateway MCP com licença MIT, feito por Anderson Medeiros."],
@@ -2254,7 +2254,8 @@ export const INTEGRATION_EXTRAS = {
       lead: "Send email from your agents with the narrowest Gmail permission Google offers. The connection can send, and that is all it can do.",
       groups: [
         ["Send", "<code>send_email</code> sends a plain-text message from the connected account to one or more recipients, with optional cc."],
-        ["No reading", "The only Gmail scope requested is <code>gmail.send</code>. The agent cannot read, search or delete messages in your inbox."],
+        ["Read", "<code>search_threads</code>, <code>get_thread</code>, <code>get_message</code> and <code>list_labels</code> search and read your mail. They need <code>gmail.readonly</code>, which you grant by connecting Gmail with your own OAuth client."],
+        ["No reading by default", "The default connection only asks for <code>gmail.send</code>. Without your own OAuth client the agent cannot read, search or delete messages in your inbox."],
       ],
       prompts: [
         "Email the summary of this pull request to ana@example.com.",
@@ -2262,7 +2263,7 @@ export const INTEGRATION_EXTRAS = {
         "Write a short status update for my manager and send it.",
       ],
       faq: [
-        ["Can the agent read my inbox?", "No. The connection only asks for <code>gmail.send</code>, which cannot read, search or delete mail."],
+        ["Can the agent read my inbox?", "Not by default. The connection only asks for <code>gmail.send</code>. Connect Gmail with your own OAuth client and the <code>gmail.readonly</code> scope to turn on the read tools."],
         ["Can it send HTML or attachments?", "No. <code>send_email</code> sends plain text with to, cc, subject and body."],
         ["Which address does the email come from?", "The Google account you connected. <code>account_whoami</code> shows which one it is."],
       ],
@@ -2272,7 +2273,8 @@ export const INTEGRATION_EXTRAS = {
       lead: "Mande e-mail pelos agentes com a permissão mais estreita que o Google oferece no Gmail. A conexão envia, e é só isso que ela faz.",
       groups: [
         ["Enviar", "<code>send_email</code> manda uma mensagem em texto pela conta conectada para um ou mais destinatários, com cópia opcional."],
-        ["Sem leitura", "O único escopo do Gmail pedido é <code>gmail.send</code>. O agente não lê, não busca e não apaga mensagens da sua caixa."],
+        ["Ler", "<code>search_threads</code>, <code>get_thread</code>, <code>get_message</code> e <code>list_labels</code> buscam e leem seus e-mails. Elas precisam de <code>gmail.readonly</code>, que você libera conectando o Gmail com o seu próprio cliente OAuth."],
+        ["Sem leitura por padrão", "A conexão padrão só pede <code>gmail.send</code>. Sem o seu próprio cliente OAuth o agente não lê, não busca e não apaga mensagens da sua caixa."],
       ],
       prompts: [
         "Mande o resumo deste pull request para ana@example.com.",
@@ -2280,7 +2282,7 @@ export const INTEGRATION_EXTRAS = {
         "Escreva uma atualização curta para o meu gestor e envie.",
       ],
       faq: [
-        ["O agente lê a minha caixa de entrada?", "Não. A conexão só pede <code>gmail.send</code>, que não lê, não busca e não apaga e-mail."],
+        ["O agente lê a minha caixa de entrada?", "Por padrão, não. A conexão só pede <code>gmail.send</code>. Conecte o Gmail com o seu próprio cliente OAuth e o escopo <code>gmail.readonly</code> para ligar as tools de leitura."],
         ["Ele manda HTML ou anexo?", "Não. <code>send_email</code> manda texto puro com destinatário, cópia, assunto e corpo."],
         ["De qual endereço o e-mail sai?", "Da conta Google que você conectou. <code>account_whoami</code> mostra qual é."],
       ],
